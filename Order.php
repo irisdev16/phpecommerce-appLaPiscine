@@ -84,7 +84,7 @@ class Order {
 
 
     //je créé une méthode "envoi de la commande"
-    public function sendOrder(){
+    public function ship(){
         //condition : si la commande est payée
         if ($this->status == "paid"){
             // alors je peux indiquer que la commande est envoyée
@@ -125,8 +125,7 @@ $order3->pay();
 $order4 = new Order("Emilie");
 $order4->addProduct();
 $order4->addProduct();
-$order4->sendOrder();
-$order4->setShippingAddress($this->shippingAddress);
+$order4->setShippingAddress("2 rue de la boetie");
 
 //Exemple 4 : je créé une nouvelle commande, je passe en paramètre le nom du client, j'ajoute 2 articles, je paie et j'envoie
 var_dump($order4);
