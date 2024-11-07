@@ -14,10 +14,20 @@ class Order {
     //j'assigne à l'objet une propriété "products"
     public $products = [];
 
+    // je créé une méthode construct :
+    //le constructeur est une méthode "magique" car elle est appelé automatiquement dans l'objet créé
+    public function __construct($customerName){
+        // j'initie avec this qui fait référence à l'instance de classe actuel, je donne un nom à ma variable qui ici est le même
+        //que la propriété de ma méthode et de ma classe, j'appelle la propriété
+        $this->customerName = $customerName;
+        // idem pour this ici, je dis que la propriété id aura un identifiant unique
+        $this->id = uniqid();
+
+    }
 
     //je créé une méthode (fonction) "addProduct" qui permet l'ajout d'un produit
-    // le $this n'a de sens qu'à l'intérieur de ma class, il fait référence à l'objet actuel c'est-à-dire a Order1,
-    // Order2, etccc.  donc à l'objet actuel issu de la class.
+    // le $this n'a de sens qu'à l'intérieur de ma class, il fait référence à l'instance de classe actuel c'est-à-dire a Order1,
+    // Order2, etccc.  donc à l'instance de classe actuel issu de la class.
     public function addProduct(){
         //condition : si le status de la commande est "cart" (donc produits dans le panier)
         if ($this->status = "cart"){
@@ -53,18 +63,26 @@ class Order {
 }
 
 //Exemple 1 : je créé une nouvelle commande, j'ajoute 2 produits, et je paie
-//je créé un objet Order1
-$order1 = new Order();
+//je créé une instance de classe Order1
+$order1 = new Order("Amélie Poulain");
 $order1->addProduct();
 $order1->addProduct();
 $order1->pay();
 
 //Exemple 2 : je créé une nouvelle commande,j'ajoute 2 produits, je retire un produit
-//Je créé un objet Order2
-$order2 = new Order();
+//Je créé une instance de classe Order2
+$order2 = new Order("Gandalf");
 $order2->addProduct();
 $order2->addProduct();
 $order2->removeProduct();
 
+//Exemple 3 : je créé une nouvelle commande, je passe en paramètre le nom du client (ici mon nom), j'aoute 2 articles et je paie
+// je créé une instance de classe Order3
+$order3 = new Order("Iris Dettori");
+$order1->addProduct();
+$order1->addProduct();
+$order1->pay();
+
 var_dump($order1);
 var_dump($order2);
+var_dump($order3);
