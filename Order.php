@@ -41,18 +41,30 @@ class Order {
     public function removeProduct(){
         //si le statut de ma commande est "cart" et donc en cours
         if ($this->status === "cart"){
-            //alors je supprimer le dernier élément de mon tableau de produits
-            array_pop($this->products);
-            $this->totalPrice -= 3;
+            //et si mon tableau n'est pas vide
+            if (!empty($this->products)) {
+                //alors je supprime le dernier élément de mon tableau de produits
+                array_pop($this->products);
+                //et alors je diminue le prix de 3 puisqu'un paquet de pringles vaut 3 euros
+                $this->totalPrice -= 3;
+            }
         }
     }
-
 }
 
+//Exemple 1 : je créé une nouvelle commande, j'ajoute 2 produits, et je paie
 //je créé un objet Order1
 $order1 = new Order();
 $order1->addProduct();
 $order1->addProduct();
-$order1->removeProduct();
+$order1->pay();
+
+//Exemple 2 : je créé une nouvelle commande,j'ajoute 2 produits, je retire un produit
+//Je créé un objet Order2
+$order2 = new Order();
+$order2->addProduct();
+$order2->addProduct();
+$order2->removeProduct();
 
 var_dump($order1);
+var_dump($order2);
