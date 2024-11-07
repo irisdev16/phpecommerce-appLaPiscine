@@ -1,6 +1,6 @@
 <?php
 
-// je créé un objet Order
+// je créé une class  Order
 class Order {
 
     //j'assigne à l'objet une propriété "id"
@@ -15,7 +15,9 @@ class Order {
     public $products = [];
 
 
-    //je créé une fonction "addProduct" qui permet l'ajout d'un produit
+    //je créé une méthode (fonction) "addProduct" qui permet l'ajout d'un produit
+    // le $this n'a de sens qu'à l'intérieur de ma class, il fait référence à l'objet actuel c'est-à-dire a Order1,
+    // Order2, etccc.  donc à l'objet actuel issu de la class.
     public function addProduct(){
         //condition : si le status de la commande est "cart" (donc produits dans le panier)
         if ($this->status = "cart"){
@@ -26,19 +28,28 @@ class Order {
         }
     }
 
-    //je créé une fonction "pay" qui permet de payer la commande
+    //je créé une méthode "pay" qui permet de payer la commande
     public function pay() {
         //condition : si le statut de la commande est "cart"
-        if ($this->status == "cart"){
+        if ($this->status === "cart"){
             //le passer a "paid"
             $this->status = "paid";
         }
     }
 
+    //je créé une méthode "removeProduct" qui permet de supprimer un produit dans une commande en cours
+    public function removeProduct(){
+        if ($this->status === "cart"){
+            array_pop($this->products);
+        }
+    }
+
 }
 
+//je créé un objet Order1
 $order1 = new Order();
 $order1->addProduct();
-$order1->pay();
+$order1->addProduct();
+$order1->removeProduct();
 
 var_dump($order1);
