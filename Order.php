@@ -43,6 +43,7 @@ class Order {
         if ($this->status === "cart"){
             //alors je supprimer le dernier élément de mon tableau de produits
             array_pop($this->products);
+            $this->totalPrice -= 3;
         }
     }
 
