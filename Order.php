@@ -30,11 +30,10 @@ class Order {
 
     }
 
-    //je créé une méthode "envoie de la commande"
-
+    //je créé une méthode "envoi de la commande"
     public function sendOrder(){
-        //condition : si la commande est payée
-        if (($this->status == "cart") && ($this->status == "paid")){
+        //condition : si la commande est payée et si l'adresse n'est pas null
+        if (($this->status == "cart") && ($this->status == "paid") &&(this->shippingAddress != null){
             // alors je peux indiquer que la commande est envoyée
             $this->status = "send";
         }
@@ -79,6 +78,7 @@ class Order {
         }
     }
 }
+
 
 
 //Exemple 1 : je créé une nouvelle commande, j'ajoute 2 produits, et je paie
