@@ -3,25 +3,41 @@
 // je créé une class  Order
 class Order {
 
-    //j'assigne à l'objet une propriété "id"
+    //j'assigne à la classe une propriété "id"
     public $id;
-    //j'assigne à l'objet une propriété "customerName"
+    //j'assigne à la classe une propriété "customerName"
     public $customerName;
-    //j'assigne à l'objet une propriété "status"
+    //j'assigne à la classe une propriété "status"
     public $status = "cart";
-    //j'assigne à l'objet une propriété "totalPrice"
+    //j'assigne à la classe une propriété "adresse de livraison"
+    public $shippingAddress;
+    //j'assigne à la classe une propriété "totalPrice"
     public $totalPrice = 0;
-    //j'assigne à l'objet une propriété "products"
+    //j'assigne à la classe une propriété "products"
     public $products = [];
 
+
     // je créé une méthode construct :
-    //le constructeur est une méthode "magique" car elle est appelé automatiquement dans l'objet créé
-    public function __construct($customerName){
+    //le constructeur est une méthode "magique" car elle est appelé automatiquement quand l'instance de classe est créé
+    public function __construct($customerName, $shippingAddress){
         // j'initie avec this qui fait référence à l'instance de classe actuel, je donne un nom à ma variable qui ici est le même
         //que la propriété de ma méthode et de ma classe, j'appelle la propriété
         $this->customerName = $customerName;
         // idem pour this ici, je dis que la propriété id aura un identifiant unique
         $this->id = uniqid();
+        //je donne un nom de variable et je lui attribut la propriété shipping adress
+        $this->shippingAddress = $shippingAddress;
+
+    }
+
+    //je créé une méthode "envoie de la commande"
+
+    public function sendOrder(){
+        //condition : si la commande est payée
+        if (($this->status == "cart") && ($this->status == "paid")){
+            // alors je peux indiquer que la commande est envoyée
+            $this->status = "send";
+        }
 
     }
 
@@ -57,32 +73,41 @@ class Order {
                 array_pop($this->products);
                 //et alors je diminue le prix de 3 puisqu'un paquet de pringles vaut 3 euros
                 $this->totalPrice -= 3;
+            } else {
+                echo "Vous n'avez aucun produit à surpprimer";
             }
         }
     }
 }
 
+
 //Exemple 1 : je créé une nouvelle commande, j'ajoute 2 produits, et je paie
 //je créé une instance de classe Order1
-$order1 = new Order("Amélie Poulain");
+$order1 = new Order("Amélie Poulain", "3 rue de la Boetie");
 $order1->addProduct();
 $order1->addProduct();
 $order1->pay();
 
 //Exemple 2 : je créé une nouvelle commande,j'ajoute 2 produits, je retire un produit
 //Je créé une instance de classe Order2
-$order2 = new Order("Gandalf");
+$order2 = new Order("Gandalf", "35 rue du Cardinal");
 $order2->addProduct();
 $order2->addProduct();
 $order2->removeProduct();
 
 //Exemple 3 : je créé une nouvelle commande, je passe en paramètre le nom du client (ici mon nom), j'aoute 2 articles et je paie
 // je créé une instance de classe Order3
-$order3 = new Order("Iris Dettori");
-$order1->addProduct();
-$order1->addProduct();
-$order1->pay();
+$order3 = new Order("Iris Dettori", "18 rue du Pont");
+$order3->addProduct();
+$order3->addProduct();
+$order3->pay();
 
-var_dump($order1);
-var_dump($order2);
-var_dump($order3);
+//Exemple 3 : je créé une nouvelle commande, je passe en paramètre le nom du client et son adresse, j'ajoute 2 articles, je paie et j'envoie
+//je créé une instance de classe Order4
+$order4 = new Order("Emilie", "278 rue du Vent");
+$order4->addProduct();
+$order4->addProduct();
+$order4->pay();
+$order4->sendOrder();
+
+var_dump($order4);
