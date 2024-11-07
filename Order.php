@@ -39,7 +39,9 @@ class Order {
 
     //je créé une méthode "removeProduct" qui permet de supprimer un produit dans une commande en cours
     public function removeProduct(){
+        //si le statut de ma commande est "cart" et donc en cours
         if ($this->status === "cart"){
+            //alors je supprimer le dernier élément de mon tableau de produits
             array_pop($this->products);
         }
     }
