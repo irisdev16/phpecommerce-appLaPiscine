@@ -6,45 +6,68 @@
 class vendorMachine{
     public $isOn = false;
     public $cashAmount = 0;
-    public $snack = [
-        [
+    public $snack = [];
+
+    //je créé une méthode "construct" pour qu'à chaque instance de classe, le cashAmount soit toujours initier a zéro
+    //et l'instance de classe doit contenir les snacks
+
+    function __construct(){
+        $this->cashAmount = 0;
+        $this->snack = [
+            [
             "name" => "Snickers",
             "price" => 1,
             "quantity" => 5
         ],
-        [
-            "name" => "Mars",
-            "price" => 1.5,
-            "quantity" => 5
-        ],
-        [
-            "name" => "Twix",
-            "price" => 2,
-            "quantity" => 5
-        ],
-        [
-            "name" => "Bounty",
-            "price" => 2.5,
-            "quantity" => 5
-        ]
-    ];
+            [
+                "name" => "Mars",
+                "price" => 1.5,
+                "quantity" => 5
+            ],
+            [
+                "name" => "Twix",
+                "price" => 2,
+                "quantity" => 5
+            ],
+            [
+                "name" => "Bounty",
+                "price" => 2.5,
+                "quantity" => 5
+            ]];
+    }
 
-//je créé une méthode "turnOn" qui précisera si la machine est allumé ou pas
+//je créé une méthode "turnMachineOn" qui précisera si la machine est allumé ou pas
     function turnMachineOn(){
         //j'initie une variable qui prend en compte l'heure actuelle
-        $currentHour = date('H');
+        $currentHour = new DateTime();
 
         //si l'heure actuelle est inférieure à 18h
-        if ($currentHour < 18) {
+        if ($currentHour->format('H') < 18) {
             //alors la machine est allumée
             $this->isOn = true;
+            //afiche message machine bien allumée
+            echo "La machine est allumée";
             //sinon, la machine est éteinte
         } else {
-            $this->isOn = false;
-            //et elle affiche un message d'erreur
             echo "La machine ne peut pas être allumée après 18h.";
         }
     }
+
+    function turnMachineOff(){
+        //j'initie une variable qui prend en compte l'heure actuelle
+        $currentHour = new DateTime();
+        //si l'heure actuelle est après 18h
+        if ($currentHour->format('H') > 18) {
+            //alors la machine est éteinte
+            $this->isOn = false;
+            //affiche message machine éteinte
+            echo "La machine est éteinte";
+        }else {
+            //sinon,si l'heure actuelle est avant 18h, affiche message machine ne peut pas être éteinte
+            echo "La machine ne peut pas être éteinte avant 18h.";
+        }
+    }
+
 
 //je créé une méthode "buySnack"
     function buySnack($snackName){
