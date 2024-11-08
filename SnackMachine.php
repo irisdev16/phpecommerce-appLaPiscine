@@ -3,7 +3,7 @@
 //je créé une classe "VendorMachine"
 // j'assigne dedans les propriétés snacks(avec le tableau fournit), cashAmount et isOn
 
-class vendorMachine{
+class VendorMachine{
     public $isOn = false;
     public $cashAmount = 0;
     public $snack = [];
@@ -123,13 +123,13 @@ class vendorMachine{
 
 }
 
-$vendorMachine1 = new vendorMachine();
-$vendorMachine1->turnMachineOn();
-$vendorMachine1->buySnack("Mars");
-$vendorMachine1->buySnack("Mars");
-$vendorMachine1->buySnack("Mars");
-$vendorMachine1->shootWithFoot();
+$VendorMachine1 = new VendorMachine();
+$VendorMachine1->turnMachineOn();
+$VendorMachine1->buySnack("Mars");
+$VendorMachine1->buySnack("Mars");
+$VendorMachine1->buySnack("Mars");
+$VendorMachine1->shootWithFoot();
 
 
 
-var_dump($vendorMachine1);
+var_dump($VendorMachine1);
