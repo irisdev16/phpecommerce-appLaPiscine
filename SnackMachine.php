@@ -49,7 +49,7 @@ class VendorMachine{
             echo "La machine est allumée";
             //sinon, la machine est éteinte
         } else {
-            echo "La machine ne peut pas être allumée après 18h.";
+            throw new Exception("La machine ne peut pas être allumée après 18h.");
         }
     }
 
@@ -64,7 +64,7 @@ class VendorMachine{
             echo "La machine est éteinte";
         }else {
             //sinon,si l'heure actuelle est avant 18h, affiche message machine ne peut pas être éteinte
-            echo "La machine ne peut pas être éteinte avant 18h.";
+            throw new Exception("La machine ne peut pas être éteinte avant 18h.");
         }
     }
 
