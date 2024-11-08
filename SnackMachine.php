@@ -3,13 +3,13 @@
 //je créé une classe "VendorMachine"
 // j'assigne dedans les propriétés snacks, cashAmount et isOn
 class VendorMachine{
-    public $isOn;
-    public $cashAmount;
-    public $snack;
+    private $isOn;
+    private $cashAmount;
+    private $snack;
 
     //je créé une méthode "construct" pour qu'à chaque instance de classe, le cashAmount soit toujours initier a zéro
     //et l'instance de classe doit contenir les snacks
-    function __construct(){
+    public function __construct(){
         $this->isOn = false;
         $this->cashAmount = 0.00;
         $this->snack = [
@@ -36,11 +36,11 @@ class VendorMachine{
     }
 
 //je créé une méthode "turnMachineOn" qui allume la machine
-    function turnMachineOn(){
+    public function turnMachineOn(){
         $this->isOn = true;
     }
 
-    function turnMachineOff(){
+    public function turnMachineOff(){
         //j'initie une variable qui prend en compte la date actuelle
         $currentDate = new DateTime();
         //j'initie une variable qui prend en compte l'heure actuelle
@@ -58,7 +58,7 @@ class VendorMachine{
 
 
 //je créé une méthode "buySnack"
-    function buySnack($snackName){
+    public function buySnack($snackName){
         //si la machine est allumée
         if ($this->isOn) {
             $snackFound = false;
@@ -72,7 +72,7 @@ class VendorMachine{
                     //et si le snack est en stock
                     if ($snack['quantity'] > 0) {
                         //on modifie la quantité en utilisant la clé $key
-                        $this->snack[$key]['quantity'] -= 1;
+                        $this->removeSnackQuantity($key);
                         // on ajoute le prix payé a l'argent présent dans la machine
                         $this->cashAmount += $snack['price'];
                      }else {
@@ -89,25 +89,27 @@ class VendorMachine{
     }
 
 //je créé une méthode "shootWithFoot"
-    function shootWithFoot()
+    public function shootWithFoot()
     {
         //si la machine est allumée
         if ($this->isOn) {
-
-
             $randomIndex = rand(0, count($this->snack) - 1);
             $randomSnack = $this->snack[$randomIndex];
 
             if ($randomSnack ['quantity'] > 0) {
-                $this->snack[$randomIndex]['quantity'] -= 1;
+                $this->removeSnackQuantity($randomIndex);
             }
 
             $randomInsideCash = rand(0, $this->cashAmount * 100)/100;
             $this->cashAmount -= $randomInsideCash;
 
-
         }
     }
+
+    private function removeSnackQuantity ($index){
+        $this ->snack[$index]['quantity'] -= 1;
+    }
+
 
 }
 //je simule ici des actions émises sur la machine par un seul humain par exemple
