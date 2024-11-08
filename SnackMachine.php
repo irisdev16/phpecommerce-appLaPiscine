@@ -1,18 +1,17 @@
 <?php
 
 //je créé une classe "VendorMachine"
-// j'assigne dedans les propriétés snacks(avec le tableau fournit), cashAmount et isOn
-
+// j'assigne dedans les propriétés snacks, cashAmount et isOn
 class VendorMachine{
-    public $isOn = false;
-    public $cashAmount = 0;
-    public $snack = [];
+    public $isOn;
+    public $cashAmount;
+    public $snack;
 
     //je créé une méthode "construct" pour qu'à chaque instance de classe, le cashAmount soit toujours initier a zéro
     //et l'instance de classe doit contenir les snacks
-
     function __construct(){
-        $this->cashAmount = 0;
+        $this->isOn = false;
+        $this->cashAmount = 0.00;
         $this->snack = [
             [
             "name" => "Snickers",
@@ -36,26 +35,19 @@ class VendorMachine{
             ]];
     }
 
-//je créé une méthode "turnMachineOn" qui précisera si la machine est allumé ou pas
+//je créé une méthode "turnMachineOn" qui allume la machine
     function turnMachineOn(){
-        //j'initie une variable qui prend en compte l'heure actuelle
-        $currentHour = new DateTime();
-
-        //si l'heure actuelle est inférieure à 18h
-        if ($currentHour->format('H') < 18) {
-            //alors la machine est allumée
-            $this->isOn = true;
-            //sinon, la machine est éteinte
-        } else {
-            throw new Exception("La machine ne peut pas être allumée après 18h.");
-        }
+        $this->isOn = true;
     }
 
     function turnMachineOff(){
+        //j'initie une variable qui prend en compte la date actuelle
+        $currentDate = new DateTime();
         //j'initie une variable qui prend en compte l'heure actuelle
-        $currentHour = new DateTime();
+        $currentHour = $currentDate->format('H');
+
         //si l'heure actuelle est après 18h
-        if ($currentHour->format('H') > 18) {
+        if ($currentHour >= 18) {
             //alors la machine est éteinte
             $this->isOn = false;
         }else {
@@ -69,6 +61,8 @@ class VendorMachine{
     function buySnack($snackName){
         //si la machine est allumée
         if ($this->isOn) {
+            $snackFound = false;
+
             //je parcours chaque snack du tableau avec la clé et la valeur
             //la clé $key correspond aux différents snacks dans le tableau, position 0, 1 ou 2 etc (l'index du tableau)
             //la valeur $snack correspond aux snack présent dans la liste avec leur nom, quantité, prix
@@ -84,38 +78,36 @@ class VendorMachine{
                      }else {
                         throw new Exception("Ce snack est en rupture de stock");
                     }
+                    $snackFound = true;
+                    break;
                 }
             }
-        }else {
-            throw new Exception("La machine est éteinte, impossible d'acheter un snack");
+         if (!$snackFound){
+             throw new Exception("Ce snack n'existe pas");
+         }
         }
     }
 
 //je créé une méthode "shootWithFoot"
-    function shootWithFoot(){
+    function shootWithFoot()
+    {
         //si la machine est allumée
         if ($this->isOn) {
-            //en tapant la machine du pied, je veux récupérer un snack
-            //ici je cherche à obtenir l'index (la clé $key) d'un snack aléatoire
-            $randomKey = array_rand($this->snack);
 
-            //si le snack est en stock, alors je réduis la quantité du snack dans le stock
-            //en parcourant de manière random l'index du tableau et en ciblant les quantités pour chaque snack
-            if ($this->snack[$randomKey]["quantity"] > 0){
-                //alors je diminue de 1 le snack qui est randomly tombé
-                $this->snack[$randomKey]["quantity"] -= 1;
+
+            $randomIndex = rand(0, count($this->snack) - 1);
+            $randomSnack = $this->snack[$randomIndex];
+
+            if ($randomSnack ['quantity'] > 0) {
+                $this->snack[$randomIndex]['quantity'] -= 1;
             }
-            //si il y a de l'argent dans la machine
-            if ($this->cashAmount > 0){
-                //alors je fais en sorte de décrémenter la quantité de cash du tableau
-                $this->cashAmount -= 1;
-            }
+
+            $randomInsideCash = rand(0, $this->cashAmount * 100)/100;
+            $this->cashAmount -= $randomInsideCash;
+
+
         }
     }
-
-
-
-
 
 }
 //je simule ici des actions émises sur la machine par un seul humain par exemple
