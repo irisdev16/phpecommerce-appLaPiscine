@@ -45,8 +45,6 @@ class VendorMachine{
         if ($currentHour->format('H') < 18) {
             //alors la machine est allumée
             $this->isOn = true;
-            //afiche message machine bien allumée
-            echo "La machine est allumée";
             //sinon, la machine est éteinte
         } else {
             throw new Exception("La machine ne peut pas être allumée après 18h.");
@@ -60,8 +58,6 @@ class VendorMachine{
         if ($currentHour->format('H') > 18) {
             //alors la machine est éteinte
             $this->isOn = false;
-            //affiche message machine éteinte
-            echo "La machine est éteinte";
         }else {
             //sinon,si l'heure actuelle est avant 18h, affiche message machine ne peut pas être éteinte
             throw new Exception("La machine ne peut pas être éteinte avant 18h.");
@@ -122,7 +118,9 @@ class VendorMachine{
 
 
 }
-
+//je simule ici des actions émises sur la machine par un seul humain par exemple
+//ci dessous, je créé une instance de classe que j'appelle plusieurs fois pour plusieurs actions différentes
+// (TurnMachinOn, BuySnack, ShootWithFoot, etc, etc.)
 $VendorMachine1 = new VendorMachine();
 $VendorMachine1->turnMachineOn();
 $VendorMachine1->buySnack("Mars");
