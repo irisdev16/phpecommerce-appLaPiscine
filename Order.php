@@ -4,17 +4,17 @@
 class Order {
 
     //j'assigne à la classe une propriété "id"
-    public $id;
+    private $id;
     //j'assigne à la classe une propriété "customerName"
-    public $customerName;
+    private $customerName;
     //j'assigne à la classe une propriété "status"
-    public $status = "cart";
+    private $status = "cart";
     //j'assigne à la classe une propriété "totalPrice"
-    public $totalPrice = 0;
+    private $totalPrice = 0;
     //j'assigne à la classe une propriété "products"
-    public $products = [];
+    private $products = [];
     //j'assigne à la classe une propriété "shippingAdress"
-    public $shippingAddress;
+    private $shippingAddress;
 
 
 
@@ -63,7 +63,7 @@ class Order {
 
     public function setShippingAddress($shippingAddress){
         if ($this->status === "cart"){
-            $this->$shippingAddress = $shippingAddress;
+            $this->shippingAddress = $shippingAddress;
             $this->status = "shippingAdressSet";
         }else {
             throw new Exception("Vous n'avez rien dans votre panier, vous ne pouvez pas entrer une adresse de livraison");
@@ -99,33 +99,13 @@ class Order {
 
 
 
-//Exemple 1 : je créé une nouvelle commande, j'ajoute 2 produits, et je paie
-//je créé une instance de classe Order1
-$order1 = new Order("Amélie Poulain", "3 rue de la Boetie");
-$order1->addProduct();
-$order1->addProduct();
-$order1->pay();
 
-//Exemple 2 : je créé une nouvelle commande,j'ajoute 2 produits, je retire un produit
-//Je créé une instance de classe Order2
-$order2 = new Order("Gandalf");
-$order2->addProduct();
-$order2->addProduct();
-$order2->removeProduct();
-
-//Exemple 3 : je créé une nouvelle commande, je passe en paramètre le nom du client (ici mon nom), j'aoute 2 articles et je paie
-// je créé une instance de classe Order3
-$order3 = new Order("Iris Dettori");
-$order3->addProduct();
-$order3->addProduct();
-$order3->pay();
-
-//Exemple 3 : je créé une nouvelle commande, je passe en paramètre le nom du client , j'ajoute 2 articles, je paie et j'envoie
+//Exemple  : je créé une nouvelle commande, je passe en paramètre le nom du client , j'ajoute 2 articles, je paie et
+// j'envoie
 //je créé une instance de classe Order4
-$order4 = new Order("Emilie");
-$order4->addProduct();
-$order4->addProduct();
-$order4->setShippingAddress("2 rue de la boetie");
+$order = new Order("Emilie");
+$order->addProduct();
+$order->addProduct();
+$order->setShippingAddress("2 rue de la boetie");
 
-//Exemple 4 : je créé une nouvelle commande, je passe en paramètre le nom du client, j'ajoute 2 articles, je paie et j'envoie
-var_dump($order4);
+var_dump($order);
